@@ -28,19 +28,32 @@ class ViewController: UIViewController {
                 }
                 print("got value of the key:(id)")
                 print(id_value)
-                
+
                 guard let owner_dictionary = dictionary["owner"] as? [String: Any],//解第2層資料
                 let owner_id_value = owner_dictionary["id"] as? Int else {
                     return
                 }
                 print("got value of the key:(owner_id)")
                 print(owner_id_value)
-                
+
                 guard let private_value = dictionary["private"] as? Bool else {
                     return
                 }
                 print("got value of the key:(private)")
                 print(private_value)
+                
+//                for (key, value) in dictionary {//在 loop 中，使用 switch case 來做判斷
+//                    switch value {
+//                    case is Int:
+//                        print("\(key):\(value)(Int)")
+//                    case is String:
+//                        print("\(key):\(value)(String)")
+//                    case is Bool:
+//                        print("\(key):\(value)(Bool)")
+//                    default:
+//                        print("\(key): (UnChecked Type)")
+//                    }
+//                }
             }
         }
     }
