@@ -16,39 +16,31 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         Alamofire.request("https://api.github.com/users/octocat/repos").responseJSON { response in
-            if let result_value_from_url = response.result.value {//回傳的是 json 物件的陣列
-                if let array_of_json_object = result_value_from_url as? [Any] {//將資料轉成 json 物件的陣列
-//                    if let JSON_object = array_of_json_object.first {//取得陣列中第一個 json 物件，然後在後續解析
-                    for JSON_object in array_of_json_object {//取出陣列中的每一個 json 物件，然後解析
-                        if let dictionary = JSON_object as? [String: Any] {
-                            if let value = dictionary["id"] as? Int {
-                                print("got value of the key:(id)")
-                                print(value)
-                            }
-                            
-                            if let owner_dictionary = dictionary["owner"] as? [String: Any] {//解第2層資料
-                                if let value = owner_dictionary["site_admin"] as? Bool {
-                                    print("got value of the key:(site_admin)")
-                                    print(value)
-                                }
-                            }
-                            
-                            if let value = dictionary["private"] as? Bool {
-                                print("got value of the key:(private)")
-                                print(value)
-                            }
-                            
-//                            for (key, value) in dictionary {//以 key-value pair 取出陣列中資料
-////                                if let value_string = value as? String {//轉換成功再 print
-////                                    print(key + ":" + value_string)
-////                                }
-//                                print(key)//不轉換，直接都 print
-//                                print(value)
-//                                print("")
-//                            }
-                        }
-                    }
+            guard let result_value_from_url = response.result.value,//回傳的是 json 物件的陣列
+                let array_of_json_object = result_value_from_url as? [Any] else {//將資料轉成 json 物件的陣列
+                    return//請留意，guard 可以包括多個條件，而且可以使用之前條件得到的變數
+            }
+    //      if let JSON_object = array_of_json_object.first {//取得陣列中第一個 json 物件，然後在後續解析
+            for JSON_object in array_of_json_object {//取出陣列中的每一個 json 物件，然後解析
+                guard let dictionary = JSON_object as? [String: Any],
+                    let id_value = dictionary["id"] as? Int else {
+                    return
                 }
+                print("got value of the key:(id)")
+                print(id_value)
+                
+                guard let owner_dictionary = dictionary["owner"] as? [String: Any],//解第2層資料
+                let owner_id_value = owner_dictionary["id"] as? Int else {
+                    return
+                }
+                print("got value of the key:(owner_id)")
+                print(owner_id_value)
+                
+                guard let private_value = dictionary["private"] as? Bool else {
+                    return
+                }
+                print("got value of the key:(private)")
+                print(private_value)
             }
         }
     }
