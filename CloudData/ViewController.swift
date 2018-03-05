@@ -15,35 +15,24 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        Alamofire.request("https://httpbin.org/get").responseJSON { response in
-            if let JSON = response.result.value {
-                if let dictionary = JSON as? [String: Any] {//let the data as a kind of array
-                    
-                    if let value = dictionary["origin"] as? String {
-                        print("got value of the key:(origin)")
-                        print(value)
-                    }
-                    
-                    if let value = dictionary["url"] as? String {
-                        print("got value of the key:(url)")
-                        print(value)
-                    }
-                    
-                    if let value = dictionary["args"] as? String {
-                        print("got value of the key:(args)")
-                        print(value)
-                    }
-                    
-                    //parsing the data of headers as JSON object
-                    if let headers_dictionary = dictionary["headers"] as? [String: Any] {
-                        
-                        if let value = headers_dictionary["Accept"] as? String {
-                            print("got value of the key:(Accept)")
-                            print(value)
+        Alamofire.request("https://api.github.com/users/octocat/repos").responseJSON { response in
+            if let result_value_from_url = response.result.value {//回傳的是 json 物件的陣列
+                if let array_of_json_object = result_value_from_url as? [Any] {//將資料轉成 json 物件的陣列
+                    if let JSON_object = array_of_json_object.first {//取得陣列中第一個 json 物件，然後在後續解析
+                        if let dictionary = JSON_object as? [String: Any] {
+                            if let value = dictionary["id"] as? Int {
+                                print("got value of the key:(id)")
+                                print(value)
+                            }
+                            
+                            if let owner_dictionary = dictionary["owner"] as? [String: Any] {//解第2層資料
+                                if let value = owner_dictionary["site_admin"] as? Bool {
+                                    print("got value of the key:(site_admin)")
+                                    print(value)
+                                }
+                            }
                         }
-                        
                     }
-                    
                 }
             }
         }
