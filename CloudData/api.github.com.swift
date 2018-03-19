@@ -12,14 +12,16 @@ import Alamofire
 //宣告 struct 及其名稱，定義用來存放 JSON 內容的變數
 struct apiGithubCom {
     let id: Int
-    let owner_id: Int
     let key_private: Bool
     
-//    init() {//放在這會改寫預設的 init function (建構子)
-//        self.id = 0
-//        self.owner_id = 0
-//        self.key_private = false
-//    }
+//    let owner: (//tuple 必需至少 2 個，改用底下的 struct
+//    id: Int
+//    )
+    let owner: apiGithubComJsonOwner
+}
+
+struct apiGithubComJsonOwner {
+    let id: Int
 }
 
 extension apiGithubCom {
@@ -37,9 +39,15 @@ extension apiGithubCom {
                 return nil
         }
         
+        guard let dictionaryOwner = dictionary["owner"] as? [String: Any],//解第 2 層
+            let owner_id = dictionaryOwner["id"] as? Int else {
+                return nil
+        }
+        
         self.id = id
-        self.owner_id = 0
         self.key_private = key_private
+//        self.owner = (owner_id)//tuple 不能只有一個東西
+        self.owner = apiGithubComJsonOwner(id: owner_id)//改用 struct
     }
     
 //    定義 completion handler 來執行完成後的動作，執行的實作放在外部，
