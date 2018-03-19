@@ -42,9 +42,13 @@ extension apiGithubCom {
         self.key_private = key_private
     }
     
-    static func fetch() {//定義成 static 時，會預先載入到記憶體中，所以，struct 還沒初始化就可以使用
+//    定義 completion handler 來執行完成後的動作，執行的實作放在外部，
+    static func fetch(completion: @escaping([apiGithubCom]) -> Void) {//定義成 static 時，會預先載入到記憶體中，所以，struct 還沒初始化就可以使用
         //以下動作，跟之前放在外部時一樣
         Alamofire.request("https://api.github.com/users/octocat/repos").responseJSON { response in
+            
+            var dataTransfer: [apiGithubCom] = []//把解析出來的資料放這，用來回傳資料
+            
             guard let result_value_from_url = response.result.value,//回傳的是 json 物件的陣列
                 let array_of_json_object = result_value_from_url as? [Any] else {//將資料轉成 json 物件的陣列
                     return//請留意，guard 可以包括多個條件，而且可以使用之前條件得到的變數
@@ -60,7 +64,12 @@ extension apiGithubCom {
                     return
                 }
                 print(api_git_hub_com as Any)
+                
+                dataTransfer.append(api_git_hub_com)//將解析出來的物件（內含每筆資料）附加到陣列中
             }
+            
+            print("fetch() 完成")
+            completion(dataTransfer)//將陣列使用 completion handler 傳出
         }
     }
 }

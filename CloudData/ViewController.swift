@@ -9,12 +9,17 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var apiGithubComJson: [apiGithubCom] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        apiGithubCom.fetch()//程式重構，簡化 還沒初始化，即可使用 fetch()，因為定義成 static
+        apiGithubCom.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
+            self.apiGithubComJson = dataTransfer//把收到的資料放在這個類別的變數中
+            print("fetch() 完成後")
+            print(self.apiGithubComJson)
+        }
     }
 
     override func didReceiveMemoryWarning() {
