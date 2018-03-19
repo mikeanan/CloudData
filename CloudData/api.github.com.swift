@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 //宣告 struct 及其名稱，定義用來存放 JSON 內容的變數
 struct apiGithubCom {
@@ -39,5 +40,27 @@ extension apiGithubCom {
         self.id = id
         self.owner_id = 0
         self.key_private = key_private
+    }
+    
+    static func fetch() {//定義成 static 時，會預先載入到記憶體中，所以，struct 還沒初始化就可以使用
+        //以下動作，跟之前放在外部時一樣
+        Alamofire.request("https://api.github.com/users/octocat/repos").responseJSON { response in
+            guard let result_value_from_url = response.result.value,//回傳的是 json 物件的陣列
+                let array_of_json_object = result_value_from_url as? [Any] else {//將資料轉成 json 物件的陣列
+                    return//請留意，guard 可以包括多個條件，而且可以使用之前條件得到的變數
+            }
+            
+            for JSON_object in array_of_json_object {//取出陣列中的每一個 json 物件，然後解析
+                guard let dictionary = JSON_object as? [String: Any] else {
+                    return
+                }
+                
+                //                傳入資料，在 struct 中解析
+                guard let api_git_hub_com = apiGithubCom(dictionary: dictionary) else {
+                    return
+                }
+                print(api_git_hub_com as Any)
+            }
+        }
     }
 }
