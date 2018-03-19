@@ -13,4 +13,19 @@ struct apiGithubCom {
     let id: Int
     let owner_id: Int
     let key_private: Bool
+    
+//    init() {//放在這會改寫預設的 init function (建構子)
+//        self.id = 0
+//        self.owner_id = 0
+//        self.key_private = false
+//    }
+}
+
+extension apiGithubCom {
+    
+    init() {//在這，不會影響預設的 init function
+        self.id = 0
+        self.owner_id = 0
+        self.key_private = false
+    }
 }

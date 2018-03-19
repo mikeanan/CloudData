@@ -46,8 +46,11 @@ class ViewController: UIViewController {
                 let api_git_hubcom = apiGithubCom(id: id_value,
                                                   owner_id: owner_id_value,
                                                   key_private: private_value)
-                
                 print(api_git_hubcom)
+                
+//                使用自訂的 init 初始化變數
+                let api_git_hubcom2 = apiGithubCom()
+                print(api_git_hubcom2)
             }
             
         }
