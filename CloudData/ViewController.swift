@@ -42,19 +42,14 @@ class ViewController: UIViewController {
                 print("got value of the key:(private)")
                 print(private_value)
                 
-//                for (key, value) in dictionary {//在 loop 中，使用 switch case 來做判斷
-//                    switch value {
-//                    case is Int:
-//                        print("\(key):\(value)(Int)")
-//                    case is String:
-//                        print("\(key):\(value)(String)")
-//                    case is Bool:
-//                        print("\(key):\(value)(Bool)")
-//                    default:
-//                        print("\(key): (UnChecked Type)")
-//                    }
-//                }
+//                用來存放 JSON 內容的變數
+                let api_git_hubcom = apiGithubCom(id: id_value,
+                                                  owner_id: owner_id_value,
+                                                  key_private: private_value)
+                
+                print(api_git_hubcom)
             }
+            
         }
     }
 

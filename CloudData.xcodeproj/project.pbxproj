@@ -14,6 +14,7 @@
 		27597590203FC2AF00DB036D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2759758E203FC2AF00DB036D /* LaunchScreen.storyboard */; };
 		275975CE203FEB2500DB036D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275975C1203FEAA500DB036D /* Alamofire.framework */; };
 		275975CF203FEB2500DB036D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 275975C1203FEAA500DB036D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		27E70FC0204D32EF004DA221 /* api.github.com.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E70FBF204D32EF004DA221 /* api.github.com.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		2759758F203FC2AF00DB036D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		27597591203FC2AF00DB036D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		275975B5203FEAA500DB036D /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		27E70FBF204D32EF004DA221 /* api.github.com.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = api.github.com.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				2759758C203FC2AF00DB036D /* Assets.xcassets */,
 				2759758E203FC2AF00DB036D /* LaunchScreen.storyboard */,
 				27597591203FC2AF00DB036D /* Info.plist */,
+				27E70FBF204D32EF004DA221 /* api.github.com.swift */,
 			);
 			path = CloudData;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27E70FC0204D32EF004DA221 /* api.github.com.swift in Sources */,
 				27597588203FC2AF00DB036D /* ViewController.swift in Sources */,
 				27597586203FC2AF00DB036D /* AppDelegate.swift in Sources */,
 			);
