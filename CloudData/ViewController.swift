@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Gloss
 
 class ViewController: UIViewController {
     var apiGithubComJson: [apiGithubCom] = []
