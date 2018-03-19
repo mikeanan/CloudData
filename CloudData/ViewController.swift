@@ -48,8 +48,8 @@ class ViewController: UIViewController {
                                                   key_private: private_value)
                 print(api_git_hubcom)
                 
-//                使用自訂的 init 初始化變數
-                let api_git_hubcom2 = apiGithubCom()
+//                傳入資料，在 struct 中解析
+                let api_git_hubcom2 = apiGithubCom(dictionary: dictionary)
                 print(api_git_hubcom2)
             }
             
