@@ -39,7 +39,17 @@ class StudentDataTableViewController: UITableViewController {
         studentDataArray += [studentData1, studentData2, studentData3, studentData4, studentData5]
     }
     
-
+    //讓 IB 可以找到 segue 切換時，要使用的動作
+    @IBAction func unwindToStudentDataList(sender: UIStoryboardSegue) {
+        //檢查是從哪個頁面切過來的，檢查傳回來的資料
+        if let sourceViewController = sender.source as? ViewController,
+            let studentData = sourceViewController.studenDataTransfer {
+            let indexPath = IndexPath(row: studentDataArray.count, section: 0)
+            studentDataArray.append(studentData)//把資料加到 list 用的資料陣列
+            tableView.insertRows(at: [indexPath], with: .automatic)//更新 UI
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
