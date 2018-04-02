@@ -11,7 +11,8 @@ import UIKit
 //要記得在 identity inspector 中設定 custom class
 class StudentDataTableViewController: UITableViewController {
 
-    var studentDataArray = [StudentData]()//存放要顯示用的資料的陣列
+//    var studentDataArray = [StudentData]()//存放要顯示用的資料的陣列
+    var githubDataArray = [apiGithubComGloss]()//整合網路，改用相對應的資料結構
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,42 +25,44 @@ class StudentDataTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem//顯示 table view list 編輯按鈕
         
 //        模擬從網路取得資料
-        loadSamplesStudentData()
+//        loadSamplesStudentData()//已由實際取得資料代替
         
-//        TODO:實際從網路取得資料
-//        apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
-//            self.apiGithubComGlossJson = dataTransfer//把收到的資料放在這個類別的變數中
-//            print("fetch() 完成後")
-//            print(self.apiGithubComGlossJson)
-//        }
+//        實際從網路取得資料
+        apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
+            self.githubDataArray = dataTransfer//改用 githubDataArray
+            print("fetch() 完成後")
+            print(self.githubDataArray)
+            
+            self.tableView.reloadData()//在非同步得到資料後，再次更新 UI
+        }
     }
     
 //            模擬從網路取得資料
-    func loadSamplesStudentData() {
-        //定幾點資料放到陣列中
-        let studentData1 = StudentData(name: "mike", gender: "male", email: "mike@gmail.com")
-        let studentData2 = StudentData(name: "Jack", gender: "male", email: "Jack@gmail.com")
-        let studentData3 = StudentData(name: "John", gender: "male", email: "John@gmail.com")
-        let studentData4 = StudentData(name: "Mary", gender: "female", email: "Mary@gmail.com")
-        let studentData5 = StudentData(name: "Judy", gender: "female", email: "Judy@gmail.com")
-        
-        //將模擬資料放到陣列中
-        studentDataArray += [studentData1, studentData2, studentData3, studentData4, studentData5]
-    }
+//    func loadSamplesStudentData() {//不需要了
+//        //定幾點資料放到陣列中
+//        let studentData1 = StudentData(name: "mike", gender: "male", email: "mike@gmail.com")
+//        let studentData2 = StudentData(name: "Jack", gender: "male", email: "Jack@gmail.com")
+//        let studentData3 = StudentData(name: "John", gender: "male", email: "John@gmail.com")
+//        let studentData4 = StudentData(name: "Mary", gender: "female", email: "Mary@gmail.com")
+//        let studentData5 = StudentData(name: "Judy", gender: "female", email: "Judy@gmail.com")
+//
+//        //將模擬資料放到陣列中
+//        studentDataArray += [studentData1, studentData2, studentData3, studentData4, studentData5]
+//    }
     
     //讓 IB 可以找到 segue 切換時，要使用的動作
     @IBAction func unwindToStudentDataList(sender: UIStoryboardSegue) {
         //檢查是從哪個頁面切過來的，檢查傳回來的資料
         if let sourceViewController = sender.source as? ViewController,
-            let studentData = sourceViewController.studenDataTransfer {
+            let githubData = sourceViewController.githubDataTransfer {//改用 githubDataTransfer
             
 //            判斷是否要更新 table view 的項目，或是新增項目
             if let selectedIndexPath = tableView.indexPathForSelectedRow {//如果是點選某一項，則更新該項的資料及 UI
-                studentDataArray[selectedIndexPath.row] = studentData
+                githubDataArray[selectedIndexPath.row] = githubData//改用 githubDataArray, githubData
                 tableView.reloadRows(at: [selectedIndexPath], with: .fade)
-            } else {//如果沒有點選某一項，判斷為新增一筆資料
-                let indexPath = IndexPath(row: studentDataArray.count, section: 0)
-                studentDataArray.append(studentData)//把資料加到 list 用的資料陣列
+            } else {//如果沒有點選某一項，判斷為新增一筆資料 //改用 githubDataArray, githubData
+                let indexPath = IndexPath(row: githubDataArray.count, section: 0)
+                githubDataArray.append(githubData)//把資料加到 list 用的資料陣列
                 tableView.insertRows(at: [indexPath], with: .automatic)//更新 UI
             }
         }
@@ -83,7 +86,8 @@ class StudentDataTableViewController: UITableViewController {
 //    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let number = studentDataArray.count//根據陣列資料數目顯示
+        let number = githubDataArray.count//根據陣列資料數目顯示 //改用 githubDataArray
+        print("目前會傳到 UI 中的資料個數")
         return number
     }
     
@@ -101,12 +105,14 @@ class StudentDataTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! StudentDataTableViewCell//要轉成 custom cell view class 的類別
         
         // Configure the cell...
-        let studentData = studentDataArray[indexPath.row]//取出對應的資料放在 cell 介面中
+        //改用 githubDataArray, githubData
+        let studentData = githubDataArray[indexPath.row]//取出對應的資料放在 cell 介面中
         
         cell.nameLabel.text = studentData.name
-        cell.genderLabel.text = studentData.gender
-        cell.emailLabel.text = studentData.email
+        cell.genderLabel.text = studentData.url
+        cell.emailLabel.text = studentData.full_name
         
+        print("資料更新到 UI 中")
         return cell
     }
 
@@ -122,7 +128,7 @@ class StudentDataTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //需要同時刪除對應的資料，否則更新 table view list 時，會因為資料對不上而當掉
-            studentDataArray.remove(at: indexPath.row)
+            githubDataArray.remove(at: indexPath.row)//改用 githubDataArray
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -174,8 +180,9 @@ class StudentDataTableViewController: UITableViewController {
                 fatalError("無法解出點選列的 index")
             }
             
-            let selectedStudentData = studentDataArray[indexPath.row]//找到對應位置的資料
-            viewController.studenDataTransfer = selectedStudentData//將資料放到目標頁面的變數中，準備顯示
+            //改用 githubDataArray, githubData
+            let selectedGithubData = githubDataArray[indexPath.row]//找到對應位置的資料
+            viewController.githubDataTransfer = selectedGithubData//將資料放到目標頁面的變數中，準備顯示
             
         default:
             fatalError("segue identifier unknown...")
