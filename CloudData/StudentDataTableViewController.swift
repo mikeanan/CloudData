@@ -139,5 +139,17 @@ class StudentDataTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        switch(segue.identifier ?? "") {//切換之前可以判斷用什麼方式
+        case "AddStudentData":
+            print("AddStudentData, prepare for segue")
+        case "ShowStudentData":
+            print("ShowStudentData, prepare for segue")
+        default:
+            fatalError("segue identifier unknown...")
+        }
+    }
 
 }

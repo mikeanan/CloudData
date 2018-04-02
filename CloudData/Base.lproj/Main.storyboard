@@ -53,6 +53,7 @@
                                     <outlet property="emailLabel" destination="f4I-Dd-CSk" id="Ffu-Cb-GcH"/>
                                     <outlet property="genderLabel" destination="X2Z-ct-57I" id="uvS-Uk-oRd"/>
                                     <outlet property="nameLabel" destination="p0u-ub-MPx" id="odo-Au-aCQ"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="ShowStudentData" id="dIo-Wo-EeO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -203,4 +204,7 @@
             <point key="canvasLocation" x="258" y="-619"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="dIo-Wo-EeO"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -18,8 +18,15 @@ class ViewController: UIViewController {
     }
     
     //直接從 IB 拖拉過來這裹即可
-    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {//2 個 segue 跳回上一頁的方式不同
+        let isPresentingInAddItem = presentingViewController is UINavigationController
+        if isPresentingInAddItem {
+            dismiss(animated: true, completion: nil)//使用 modal 頁面時
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)//使用 show 頁面時
+        } else {
+            fatalError("not belong to any navigation controller")
+        }
     }
     
     //直接從 IB 拖拉過來這裹即可
