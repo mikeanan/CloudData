@@ -147,6 +147,21 @@ class StudentDataTableViewController: UITableViewController {
             print("AddStudentData, prepare for segue")
         case "ShowStudentData":
             print("ShowStudentData, prepare for segue")
+            guard let viewController = segue.destination as? ViewController else {
+                fatalError("不是我們要切換的頁面")
+            }
+            
+            guard let selectedStudentDataCell = sender as? StudentDataTableViewCell else {
+                fatalError("不是我們點選的 cell 類別")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedStudentDataCell) else {
+                fatalError("無法解出點選列的 index")
+            }
+            
+            let selectedStudentData = studentDataArray[indexPath.row]//找到對應位置的資料
+            viewController.studenDataTransfer = selectedStudentData//將資料放到目標頁面的變數中，準備顯示
+            
         default:
             fatalError("segue identifier unknown...")
         }

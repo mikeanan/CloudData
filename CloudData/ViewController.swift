@@ -48,6 +48,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //解出傳過來的資料
+        guard let studentDataTmp = studenDataTransfer else {
+//            fatalError("沒有傳進來的資料")
+            return
+        }
+        
+        nameLabel.text = studentDataTmp.name
+        genderLabel.text = studentDataTmp.gender
+        emailLabel.text = studentDataTmp.email
     }
 
     override func didReceiveMemoryWarning() {
