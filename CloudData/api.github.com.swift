@@ -60,6 +60,9 @@ extension apiGithubComGloss {
                 return
             }
             
+            var helper = Helper.sharedInstance //調用 singleton 的實體
+            helper.helperGithubDataArray = dataTransfer //將資料放在全域變數中
+            
             print("fetch() 完成")
             completion(dataTransfer)//將陣列使用 completion handler 傳出
         }

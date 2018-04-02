@@ -13,6 +13,7 @@ class StudentDataTableViewController: UITableViewController {
 
 //    var studentDataArray = [StudentData]()//存放要顯示用的資料的陣列
     var githubDataArray = [apiGithubComGloss]()//整合網路，改用相對應的資料結構
+    var helper = Helper.sharedInstance //調用 singleton 的實體
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,9 @@ class StudentDataTableViewController: UITableViewController {
         apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
             self.githubDataArray = dataTransfer//改用 githubDataArray
             print("fetch() 完成後")
-            print(self.githubDataArray)
+//            print(self.githubDataArray)
+            
+            print(self.helper.helperGithubDataArray as Any)
             
             self.tableView.reloadData()//在非同步得到資料後，再次更新 UI
         }
