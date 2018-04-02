@@ -19,8 +19,15 @@ class ViewController: UIViewController {
     }
     
     //直接從 IB 拖拉過來這裹即可
-    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func cancelButton(_ sender: UIBarButtonItem) {//2 個 segue 跳回上一頁的方式不同
+        let isPresentingInAddItem = presentingViewController is UINavigationController
+        if isPresentingInAddItem {
+            dismiss(animated: true, completion: nil)//使用 modal 頁面時
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)//使用 show 頁面時
+        } else {
+            fatalError("not belong to any navigation controller")
+        }
     }
     
     //直接從 IB 拖拉過來這裹即可
@@ -43,11 +50,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+//        TODO：要搬到程式起始處
         apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
             self.apiGithubComGlossJson = dataTransfer//把收到的資料放在這個類別的變數中
             print("fetch() 完成後")
             print(self.apiGithubComGlossJson)
         }
+        
+        //解出傳過來的資料
+        guard let studentDataTmp = studenDataTransfer else {
+//            fatalError("沒有傳進來的資料")
+            return
+        }
+        
+        nameLabel.text = studentDataTmp.name
+        genderLabel.text = studentDataTmp.gender
+        emailLabel.text = studentDataTmp.email
+        
     }
 
     override func didReceiveMemoryWarning() {
