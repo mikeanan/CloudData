@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270CD80B206892F900D20757 /* StudentDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CD80A206892F900D20757 /* StudentDataTableViewCell.swift */; };
+		270CD80D206896E900D20757 /* StudentDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CD80C206896E900D20757 /* StudentDataTableViewController.swift */; };
+		270CD80F2068981300D20757 /* StudentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CD80E2068981300D20757 /* StudentData.swift */; };
 		27597586203FC2AF00DB036D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27597585203FC2AF00DB036D /* AppDelegate.swift */; };
 		27597588203FC2AF00DB036D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27597587203FC2AF00DB036D /* ViewController.swift */; };
 		2759758B203FC2AF00DB036D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27597589203FC2AF00DB036D /* Main.storyboard */; };
@@ -91,6 +94,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		270CD80A206892F900D20757 /* StudentDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDataTableViewCell.swift; sourceTree = "<group>"; };
+		270CD80C206896E900D20757 /* StudentDataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDataTableViewController.swift; sourceTree = "<group>"; };
+		270CD80E2068981300D20757 /* StudentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentData.swift; sourceTree = "<group>"; };
 		27597582203FC2AF00DB036D /* CloudData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27597585203FC2AF00DB036D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27597587203FC2AF00DB036D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +143,9 @@
 				27597585203FC2AF00DB036D /* AppDelegate.swift */,
 				27597587203FC2AF00DB036D /* ViewController.swift */,
 				27597589203FC2AF00DB036D /* Main.storyboard */,
+				270CD80C206896E900D20757 /* StudentDataTableViewController.swift */,
+				270CD80E2068981300D20757 /* StudentData.swift */,
+				270CD80A206892F900D20757 /* StudentDataTableViewCell.swift */,
 				2759758C203FC2AF00DB036D /* Assets.xcassets */,
 				2759758E203FC2AF00DB036D /* LaunchScreen.storyboard */,
 				27597591203FC2AF00DB036D /* Info.plist */,
@@ -293,7 +302,10 @@
 			files = (
 				27E70FC0204D32EF004DA221 /* api.github.com.swift in Sources */,
 				27597588203FC2AF00DB036D /* ViewController.swift in Sources */,
+				270CD80B206892F900D20757 /* StudentDataTableViewCell.swift in Sources */,
 				27597586203FC2AF00DB036D /* AppDelegate.swift in Sources */,
+				270CD80D206896E900D20757 /* StudentDataTableViewController.swift in Sources */,
+				270CD80F2068981300D20757 /* StudentData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
