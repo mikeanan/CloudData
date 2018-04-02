@@ -44,9 +44,16 @@ class StudentDataTableViewController: UITableViewController {
         //檢查是從哪個頁面切過來的，檢查傳回來的資料
         if let sourceViewController = sender.source as? ViewController,
             let studentData = sourceViewController.studenDataTransfer {
-            let indexPath = IndexPath(row: studentDataArray.count, section: 0)
-            studentDataArray.append(studentData)//把資料加到 list 用的資料陣列
-            tableView.insertRows(at: [indexPath], with: .automatic)//更新 UI
+            
+//            判斷是否要更新 table view 的項目，或是新增項目
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {//如果是點選某一項，則更新該項的資料及 UI
+                studentDataArray[selectedIndexPath.row] = studentData
+                tableView.reloadRows(at: [selectedIndexPath], with: .fade)
+            } else {//如果沒有點選某一項，判斷為新增一筆資料
+                let indexPath = IndexPath(row: studentDataArray.count, section: 0)
+                studentDataArray.append(studentData)//把資料加到 list 用的資料陣列
+                tableView.insertRows(at: [indexPath], with: .automatic)//更新 UI
+            }
         }
     }
     
