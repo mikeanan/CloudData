@@ -12,4 +12,5 @@ class Helper {//singleton pattern
     static let sharedInstance = Helper()
     
     var helperGithubDataArray: [apiGithubComGloss]?
+    var helperLocalhostStudentsDataArray: [localhostStudents]?//localhost 資料
 }

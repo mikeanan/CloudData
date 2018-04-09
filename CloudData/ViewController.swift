@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     //改用 apiGithubComGloss, githubDataTransfer
-    var githubDataTransfer: apiGithubComGloss!//用來讓 segue 回傳資料用
+    var localhostDataTransfer: localhostStudents!//用來讓 segue 回傳資料用
     
     //segue 切換之前的 prepare function，可以用來檢查 sender 是誰
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
             let email = emailTextField.text ?? "No data"
             
             //改用 apiGithubComGloss, githubDataTransfer
-            githubDataTransfer = apiGithubComGloss(name: name, gender: gender, email: email)//自訂 init
+            localhostDataTransfer = localhostStudents(name: name, gender: gender, email: email)//自訂 init
         }
     }
     
@@ -61,15 +61,15 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
         
         //解出傳過來的資料
         //改用 apiGithubComGloss, githubDataTransfer
-        guard let githubDataTmp = githubDataTransfer else {
+        guard let githubDataTmp = localhostDataTransfer else {
 //            fatalError("沒有傳進來的資料")
             return
         }
         
         //改用 githubDataTmp
-        nameTextField.text = githubDataTmp.name
-        genderTextField.text = githubDataTmp.url
-        emailTextField.text = githubDataTmp.full_name
+        nameTextField.text = githubDataTmp.cName
+        genderTextField.text = githubDataTmp.cSex
+        emailTextField.text = githubDataTmp.cEmail
         
         nameTextField.delegate = self//修改成可以輸入
         genderTextField.delegate = self

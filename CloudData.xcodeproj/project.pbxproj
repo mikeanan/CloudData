@@ -18,6 +18,7 @@
 		275975CE203FEB2500DB036D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275975C1203FEAA500DB036D /* Alamofire.framework */; };
 		275975CF203FEB2500DB036D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 275975C1203FEAA500DB036D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		276A869D20721C1D0009D4A7 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A869C20721C1D0009D4A7 /* Helper.swift */; };
+		276A86BE207B3A740009D4A7 /* localhost.students.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A86BD207B3A740009D4A7 /* localhost.students.swift */; };
 		27D171AA205F979D0014936A /* Gloss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D171A1205F973E0014936A /* Gloss.framework */; };
 		27D171AB205F979D0014936A /* Gloss.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27D171A1205F973E0014936A /* Gloss.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27E70FC0204D32EF004DA221 /* api.github.com.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E70FBF204D32EF004DA221 /* api.github.com.swift */; };
@@ -152,6 +153,7 @@
 		27597591203FC2AF00DB036D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		275975B5203FEAA500DB036D /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		276A869C20721C1D0009D4A7 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		276A86BD207B3A740009D4A7 /* localhost.students.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = localhost.students.swift; sourceTree = "<group>"; };
 		27D17198205F973E0014936A /* Gloss.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Gloss.xcodeproj; path = Gloss/Gloss.xcodeproj; sourceTree = "<group>"; };
 		27E70FBF204D32EF004DA221 /* api.github.com.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = api.github.com.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -201,6 +203,7 @@
 				27597591203FC2AF00DB036D /* Info.plist */,
 				27E70FBF204D32EF004DA221 /* api.github.com.swift */,
 				276A869C20721C1D0009D4A7 /* Helper.swift */,
+				276A86BD207B3A740009D4A7 /* localhost.students.swift */,
 			);
 			path = CloudData;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				276A869D20721C1D0009D4A7 /* Helper.swift in Sources */,
 				27597588203FC2AF00DB036D /* ViewController.swift in Sources */,
 				270CD80B206892F900D20757 /* StudentDataTableViewCell.swift in Sources */,
+				276A86BE207B3A740009D4A7 /* localhost.students.swift in Sources */,
 				27597586203FC2AF00DB036D /* AppDelegate.swift in Sources */,
 				270CD80D206896E900D20757 /* StudentDataTableViewController.swift in Sources */,
 				270CD80F2068981300D20757 /* StudentData.swift in Sources */,

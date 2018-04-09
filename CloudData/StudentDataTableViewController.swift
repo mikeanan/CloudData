@@ -12,7 +12,7 @@ import UIKit
 class StudentDataTableViewController: UITableViewController {
 
 //    var studentDataArray = [StudentData]()//存放要顯示用的資料的陣列
-    var githubDataArray = [apiGithubComGloss]()//整合網路，改用相對應的資料結構
+    var localhostStudentsDataArray = [localhostStudents]()//整合網路，改用相對應的資料結構
     var helper = Helper.sharedInstance //調用 singleton 的實體
     
     override func viewDidLoad() {
@@ -29,12 +29,12 @@ class StudentDataTableViewController: UITableViewController {
 //        loadSamplesStudentData()//已由實際取得資料代替
         
 //        實際從網路取得資料
-        apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
-            self.githubDataArray = dataTransfer//改用 githubDataArray
+        localhostStudents.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
+            self.localhostStudentsDataArray = dataTransfer//改用 githubDataArray
             print("fetch() 完成後")
 //            print(self.githubDataArray)
             
-            print(self.helper.helperGithubDataArray as Any)
+            print(self.helper.helperLocalhostStudentsDataArray as Any)
             
             self.tableView.reloadData()//在非同步得到資料後，再次更新 UI
         }
@@ -57,15 +57,15 @@ class StudentDataTableViewController: UITableViewController {
     @IBAction func unwindToStudentDataList(sender: UIStoryboardSegue) {
         //檢查是從哪個頁面切過來的，檢查傳回來的資料
         if let sourceViewController = sender.source as? ViewController,
-            let githubData = sourceViewController.githubDataTransfer {//改用 githubDataTransfer
+            let localhostData = sourceViewController.localhostDataTransfer {//改用 githubDataTransfer
             
 //            判斷是否要更新 table view 的項目，或是新增項目
             if let selectedIndexPath = tableView.indexPathForSelectedRow {//如果是點選某一項，則更新該項的資料及 UI
-                githubDataArray[selectedIndexPath.row] = githubData//改用 githubDataArray, githubData
+                localhostStudentsDataArray[selectedIndexPath.row] = localhostData//改用 githubDataArray, githubData
                 tableView.reloadRows(at: [selectedIndexPath], with: .fade)
             } else {//如果沒有點選某一項，判斷為新增一筆資料 //改用 githubDataArray, githubData
-                let indexPath = IndexPath(row: githubDataArray.count, section: 0)
-                githubDataArray.append(githubData)//把資料加到 list 用的資料陣列
+                let indexPath = IndexPath(row: localhostStudentsDataArray.count, section: 0)
+                localhostStudentsDataArray.append(localhostData)//把資料加到 list 用的資料陣列
                 tableView.insertRows(at: [indexPath], with: .automatic)//更新 UI
             }
         }
@@ -89,7 +89,7 @@ class StudentDataTableViewController: UITableViewController {
 //    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let number = githubDataArray.count//根據陣列資料數目顯示 //改用 githubDataArray
+        let number = localhostStudentsDataArray.count//根據陣列資料數目顯示 //改用 githubDataArray
         print("目前會傳到 UI 中的資料個數")
         return number
     }
@@ -109,11 +109,11 @@ class StudentDataTableViewController: UITableViewController {
         
         // Configure the cell...
         //改用 githubDataArray, githubData
-        let studentData = githubDataArray[indexPath.row]//取出對應的資料放在 cell 介面中
+        let studentData = localhostStudentsDataArray[indexPath.row]//取出對應的資料放在 cell 介面中
         
-        cell.nameLabel.text = studentData.name
-        cell.genderLabel.text = studentData.url
-        cell.emailLabel.text = studentData.full_name
+        cell.nameLabel.text = studentData.cName
+        cell.genderLabel.text = studentData.cSex
+        cell.emailLabel.text = studentData.cEmail
         
         print("資料更新到 UI 中")
         return cell
@@ -131,7 +131,7 @@ class StudentDataTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //需要同時刪除對應的資料，否則更新 table view list 時，會因為資料對不上而當掉
-            githubDataArray.remove(at: indexPath.row)//改用 githubDataArray
+            localhostStudentsDataArray.remove(at: indexPath.row)//改用 githubDataArray
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -184,8 +184,8 @@ class StudentDataTableViewController: UITableViewController {
             }
             
             //改用 githubDataArray, githubData
-            let selectedGithubData = githubDataArray[indexPath.row]//找到對應位置的資料
-            viewController.githubDataTransfer = selectedGithubData//將資料放到目標頁面的變數中，準備顯示
+            let selectedGithubData = localhostStudentsDataArray[indexPath.row]//找到對應位置的資料
+            viewController.localhostDataTransfer = selectedGithubData//將資料放到目標頁面的變數中，準備顯示
             
         default:
             fatalError("segue identifier unknown...")
