@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {//修改成可以輸入
     var apiGithubComGlossJson: [apiGithubComGloss] = []
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!//修改成可以輸入
+    @IBOutlet weak var genderTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     
     @IBAction func okButton(_ sender: UIButton) {
     }
@@ -39,9 +39,9 @@ class ViewController: UIViewController {
     //segue 切換之前的 prepare function，可以用來檢查 sender 是誰
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if saveButton === sender as? UIBarButtonItem {
-            let name = nameLabel.text ?? "No data"
-            let gender = genderLabel.text ?? "No data"
-            let email = emailLabel.text ?? "No data"
+            let name = nameTextField.text ?? "No data"
+            let gender = genderTextField.text ?? "No data"
+            let email = emailTextField.text ?? "No data"
             
             //改用 apiGithubComGloss, githubDataTransfer
             githubDataTransfer = apiGithubComGloss(name: name, gender: gender, email: email)//自訂 init
@@ -67,10 +67,23 @@ class ViewController: UIViewController {
         }
         
         //改用 githubDataTmp
-        nameLabel.text = githubDataTmp.name
-        genderLabel.text = githubDataTmp.url
-        emailLabel.text = githubDataTmp.full_name
+        nameTextField.text = githubDataTmp.name
+        genderTextField.text = githubDataTmp.url
+        emailTextField.text = githubDataTmp.full_name
         
+        nameTextField.delegate = self//修改成可以輸入
+        genderTextField.delegate = self
+        emailTextField.delegate = self
+        
+//        點選別的地方來收起鍵盤
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false//讓 tableView 可以正常運作
+        view.addGestureRecognizer(tap)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {//點選別的地方來收起鍵盤
+        view.endEditing(true)
+        return true
     }
 
     override func didReceiveMemoryWarning() {
