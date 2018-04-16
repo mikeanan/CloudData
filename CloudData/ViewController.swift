@@ -14,9 +14,11 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
     @IBOutlet weak var nameTextField: UITextField!//修改成可以輸入
     @IBOutlet weak var genderTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-    
-    @IBAction func okButton(_ sender: UIButton) {
-    }
+    @IBOutlet weak var birthTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
+    @IBOutlet weak var addrTextField: UITextField!
+    @IBOutlet weak var heightTextField: UITextField!
+    @IBOutlet weak var weightTextField: UITextField!
     
     //直接從 IB 拖拉過來這裹即可
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {//2 個 segue 跳回上一頁的方式不同
@@ -40,11 +42,28 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if saveButton === sender as? UIBarButtonItem {
             let name = nameTextField.text ?? "No data"
-            let gender = genderTextField.text ?? "No data"
+            let gender = (genderTextField.text ?? "No data") == "F" ? 1 : 2
+            let birth = birthTextField.text ?? "No data"
             let email = emailTextField.text ?? "No data"
+            let phone = phoneTextField.text ?? "No data"
+            let addr = addrTextField.text ?? "No data"
+            let height = Int(heightTextField.text!) ?? 0
+            let weight = Int(weightTextField.text!) ?? 0
             
             //改用 apiGithubComGloss, githubDataTransfer
-            localhostDataTransfer = localhostStudents(name: name, gender: gender, email: email)//自訂 init
+            //判斷是否有傳入資料來決定是否要建立傳資料用的物件
+            if( localhostDataTransfer == nil ) {
+                localhostDataTransfer = localhostStudents(cid: localhostDataTransfer == nil ? 0 : localhostDataTransfer.cID!, name: name, gender: gender, birth: birth, email: email, phone: phone, addr: addr, height: height, weight: weight)//自訂 init
+            } else {
+                localhostDataTransfer.cName = name
+                localhostDataTransfer.cSex = gender == 1 ? "F" : "M"
+                localhostDataTransfer.cBirthday = birth
+                localhostDataTransfer.cEmail = email
+                localhostDataTransfer.cPhone = phone
+                localhostDataTransfer.cAddr = addr
+                localhostDataTransfer.cHeight = height
+                localhostDataTransfer.cWeight = weight
+            }
         }
     }
     
@@ -53,11 +72,11 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
         // Do any additional setup after loading the view, typically from a nib.
         
 //        TODO：要搬到程式起始處
-        apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
-            self.apiGithubComGlossJson = dataTransfer//把收到的資料放在這個類別的變數中
-            print("fetch() 完成後")
-            print(self.apiGithubComGlossJson)
-        }
+//        apiGithubComGloss.fetch(){ dataTransfer in//在區塊中實作 completion handler 要做的事
+//            self.apiGithubComGlossJson = dataTransfer//把收到的資料放在這個類別的變數中
+//            print("fetch() 完成後")
+//            print(self.apiGithubComGlossJson)
+//        }
         
         //解出傳過來的資料
         //改用 apiGithubComGloss, githubDataTransfer
@@ -69,11 +88,21 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
         //改用 githubDataTmp
         nameTextField.text = githubDataTmp.cName
         genderTextField.text = githubDataTmp.cSex
+        birthTextField.text = githubDataTmp.cBirthday
         emailTextField.text = githubDataTmp.cEmail
+        phoneTextField.text = githubDataTmp.cPhone
+        addrTextField.text = githubDataTmp.cAddr
+        heightTextField.text = String(githubDataTmp.cHeight!)
+        weightTextField.text = String(githubDataTmp.cWeight!)
         
-        nameTextField.delegate = self//修改成可以輸入
+        nameTextField.delegate = self
         genderTextField.delegate = self
+        birthTextField.delegate = self
         emailTextField.delegate = self
+        phoneTextField.delegate = self
+        addrTextField.delegate = self
+        heightTextField.delegate = self
+        weightTextField.delegate = self
         
 //        點選別的地方來收起鍵盤
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))

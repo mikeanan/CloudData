@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 //要記得在 identity inspector 中設定 custom class
 class StudentDataTableViewController: UITableViewController {
@@ -61,10 +62,37 @@ class StudentDataTableViewController: UITableViewController {
             
 //            判斷是否要更新 table view 的項目，或是新增項目
             if let selectedIndexPath = tableView.indexPathForSelectedRow {//如果是點選某一項，則更新該項的資料及 UI
+                
+                //為了傳給後台使用
+                let parameters: Parameters = [ "cID": localhostData.cID!,
+                                               "cName": localhostData.cName!,
+                                               "cSex": localhostData.cSex!,
+                                               "cBirthday": localhostData.cBirthday!,
+                                               "cEmail": localhostData.cEmail!,
+                                               "cPhone": localhostData.cPhone!,
+                                               "cAddr": localhostData.cAddr!,
+                                               "cHeight": localhostData.cHeight!,
+                                               "cWeight": localhostData.cWeight! ]
+                //把包好的資料，寫到後台伺服器
+                localhostStudents.update(parameters: parameters)
+                
                 localhostStudentsDataArray[selectedIndexPath.row] = localhostData//改用 githubDataArray, githubData
                 tableView.reloadRows(at: [selectedIndexPath], with: .fade)
             } else {//如果沒有點選某一項，判斷為新增一筆資料 //改用 githubDataArray, githubData
                 let indexPath = IndexPath(row: localhostStudentsDataArray.count, section: 0)
+                
+                //為了傳給後台使用
+                let parameters: Parameters = [ "cName": localhostData.cName!,
+                                               "cSex": localhostData.cSex!,
+                                               "cBirthday": localhostData.cBirthday!,
+                                               "cEmail": localhostData.cEmail!,
+                                               "cPhone": localhostData.cPhone!,
+                                               "cAddr": localhostData.cAddr!,
+                                               "cHeight": localhostData.cHeight!,
+                                               "cWeight": localhostData.cWeight! ]
+                //把包好的資料，寫到後台伺服器
+                localhostStudents.add(parameters: parameters)
+                
                 localhostStudentsDataArray.append(localhostData)//把資料加到 list 用的資料陣列
                 tableView.insertRows(at: [indexPath], with: .automatic)//更新 UI
             }
