@@ -12,6 +12,8 @@ import Gloss
 import UIKit
 import AlamofireImage
 
+var sessionManager: SessionManager!
+
 struct localhostStudents: JSONDecodable {
     //更新型別
     var cID: Int?
@@ -86,7 +88,12 @@ extension localhostStudents {
     
 //    根據資料庫中的圖檔路徑取得圖檔
     static func fetchImage(cPhotoPath cPhotoPathIn:String, completion: @escaping(UIImage) -> Void) {
-        Alamofire.request("http://homestead.test/\(cPhotoPathIn)").responseImage{ response in
+//        將 apple 內建的快取關閉
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = nil
+//        設定套件的 session manager，並用來取得雲端檔案
+        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        sessionManager.request("http://homestead.test/\(cPhotoPathIn)").responseImage{ response in
             guard let image = response.result.value else{
                 return
             }
