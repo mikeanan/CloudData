@@ -95,6 +95,7 @@ class StudentDataTableViewController: UITableViewController {
                                                "cWeight": localhostData.cWeight! ]
                 //把包好的資料，寫到後台伺服器
                 localhostStudents.update(parameters: parameters)
+                localhostStudents.update_image(image: localhostData.photo!, photoPath: localhostData.cPhotoPath!)
                 
                 localhostStudentsDataArray[selectedIndexPath.row] = localhostData//改用 githubDataArray, githubData
                 tableView.reloadRows(at: [selectedIndexPath], with: .fade)

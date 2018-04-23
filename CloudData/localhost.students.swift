@@ -45,7 +45,7 @@ extension localhostStudents {
     
     //可能需要調整這個 init
     //cid 不一定有，傳入之前要判斷
-    init(cid cidIn:Int, name nameIn:String, gender genderIn:Int, birth birthIn:String, email emailIn:String, phone phoneIn:String, addr addrIn:String, height heightIn:Int, weight weightIn:Int) {
+    init(cid cidIn:Int, name nameIn:String, gender genderIn:Int, birth birthIn:String, email emailIn:String, phone phoneIn:String, addr addrIn:String, height heightIn:Int, weight weightIn:Int, photo photoIn:UIImage) {
         self.cID = cidIn
         self.cName = nameIn
         self.cSex = genderIn == 1 ? "F" : "M"//為了 mysql enum 做判斷
@@ -136,5 +136,28 @@ extension localhostStudents {
             }
 
         }
+    }
+    
+    static func update_image(image: UIImage, photoPath: String){
+        let image = UIImageJPEGRepresentation(image, 0.5)
+        let parameters = ["path": photoPath]
+        
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(image!, withName: "file", fileName: photoPath, mimeType: "image/jpg")
+                for(key, value) in parameters {
+                    multipartFormData.append(value.data(using:String.Encoding.utf8)!, withName: key)
+                }
+            }, to: "http://homestead.test/update_image.php", encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON{ response in
+                        print(response.result.value)
+                    }
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+            }
+        )
     }
 }

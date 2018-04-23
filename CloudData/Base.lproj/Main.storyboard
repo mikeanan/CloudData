@@ -227,6 +227,7 @@
                         <outlet property="heightTextField" destination="eOA-Ii-QyU" id="uaB-E6-goS"/>
                         <outlet property="nameTextField" destination="qXM-1B-02G" id="mmh-Jx-DDd"/>
                         <outlet property="phoneTextField" destination="cPL-NU-jYu" id="NuN-fY-lU7"/>
+                        <outlet property="photoImage" destination="wH7-UH-GpO" id="cFO-z1-nhR"/>
                         <outlet property="saveButton" destination="uWV-gK-vfh" id="UPu-NY-YX1"/>
                         <outlet property="weightTextField" destination="Xr1-6d-HL6" id="De6-Ns-913"/>
                     </connections>

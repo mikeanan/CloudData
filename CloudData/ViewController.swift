@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
     @IBOutlet weak var addrTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
     @IBOutlet weak var weightTextField: UITextField!
+    @IBOutlet weak var photoImage: UIImageView!
     
     //直接從 IB 拖拉過來這裹即可
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {//2 個 segue 跳回上一頁的方式不同
@@ -49,11 +50,12 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
             let addr = addrTextField.text ?? "No data"
             let height = Int(heightTextField.text!) ?? 0
             let weight = Int(weightTextField.text!) ?? 0
+            let photo = photoImage.image
             
             //改用 apiGithubComGloss, githubDataTransfer
             //判斷是否有傳入資料來決定是否要建立傳資料用的物件
             if( localhostDataTransfer == nil ) {
-                localhostDataTransfer = localhostStudents(cid: localhostDataTransfer == nil ? 0 : localhostDataTransfer.cID!, name: name, gender: gender, birth: birth, email: email, phone: phone, addr: addr, height: height, weight: weight)//自訂 init
+                localhostDataTransfer = localhostStudents(cid: localhostDataTransfer == nil ? 0 : localhostDataTransfer.cID!, name: name, gender: gender, birth: birth, email: email, phone: phone, addr: addr, height: height, weight: weight, photo: photo!)//自訂 init
             } else {
                 localhostDataTransfer.cName = name
                 localhostDataTransfer.cSex = gender == 1 ? "F" : "M"
@@ -63,6 +65,7 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
                 localhostDataTransfer.cAddr = addr
                 localhostDataTransfer.cHeight = height
                 localhostDataTransfer.cWeight = weight
+                localhostDataTransfer.photo = photo
             }
         }
     }
@@ -94,6 +97,7 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
         addrTextField.text = githubDataTmp.cAddr
         heightTextField.text = String(githubDataTmp.cHeight!)
         weightTextField.text = String(githubDataTmp.cWeight!)
+        photoImage.image = githubDataTmp.photo
         
         nameTextField.delegate = self
         genderTextField.delegate = self
