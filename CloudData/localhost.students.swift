@@ -9,10 +9,13 @@
 import Foundation
 import Alamofire
 import Gloss
+import UIKit
+import AlamofireImage
 
 struct localhostStudents: JSONDecodable {
     //更新型別
     var cID: Int?
+    var cPhotoPath: String?
     var cName: String?
     var cSex: String?
     var cBirthday: String?
@@ -22,8 +25,11 @@ struct localhostStudents: JSONDecodable {
     var cHeight: Int?
     var cWeight: Int?
     
+    var photo: UIImage?
+    
     init?(json: JSON) {
         self.cID = "cID" <~~ json
+        self.cPhotoPath = "cPhotoPath" <~~ json
         self.cName = "cName" <~~ json
         self.cSex = "cSex" <~~ json
         self.cBirthday = "cBirthday" <~~ json
@@ -64,6 +70,28 @@ extension localhostStudents {
             
             print("fetch() 完成")
             completion(dataTransfer)
+        }
+    }
+    
+    //    測試抓取雲端的檔案
+    //    static func fetchImages(completion: @escaping(UIImage) -> Void) {
+    //        Alamofire.request("http://homestead.test/img/01.png").responseImage{ response in
+    //            guard let image = response.result.value else{
+    //                return
+    //            }
+    //
+    //            completion(image)
+    //        }
+    //    }
+    
+//    根據資料庫中的圖檔路徑取得圖檔
+    static func fetchImage(cPhotoPath cPhotoPathIn:String, completion: @escaping(UIImage) -> Void) {
+        Alamofire.request("http://homestead.test/\(cPhotoPathIn)").responseImage{ response in
+            guard let image = response.result.value else{
+                return
+            }
+            
+            completion(image)
         }
     }
     

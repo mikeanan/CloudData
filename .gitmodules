@@ -4,3 +4,6 @@
 [submodule "Gloss"]
 	path = Gloss
 	url = https://github.com/hkellaway/Gloss.git
+[submodule "AlamofireImage"]
+	path = AlamofireImage
+	url = https://github.com/Alamofire/AlamofireImage.git

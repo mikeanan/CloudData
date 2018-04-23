@@ -1,4 +1,4 @@
-//
+ //
 //  StudentDataTableViewController.swift
 //  CloudData
 //
@@ -37,8 +37,28 @@ class StudentDataTableViewController: UITableViewController {
             
             print(self.helper.helperLocalhostStudentsDataArray as Any)
             
+//            在 completion handler 中可以確保取得資料後，再根據資料取得圖檔
+            for index in 0..<self.localhostStudentsDataArray.count {
+                let cPhotoPath = self.localhostStudentsDataArray[index].cPhotoPath
+                
+                //傳入圖檔路徑
+                localhostStudents.fetchImage(cPhotoPath: cPhotoPath!){ dataTransfer in
+                    self.localhostStudentsDataArray[index].photo = dataTransfer
+                    self.tableView.reloadData()
+                }
+            }
             self.tableView.reloadData()//在非同步得到資料後，再次更新 UI
         }
+        
+//        寫在這無法如我們預期的更新圖檔到資料陣列中，因為還沒取得資料
+//        localhostStudents.fetchImages(){ dataTransfer in
+//            for index in 0..<self.localhostStudentsDataArray.count {
+//                self.localhostStudentsDataArray[index].photo = dataTransfer
+//            }
+//
+//            self.tableView.reloadData()//在非同步得到資料後，再次更新 UI
+//        }
+        
     }
     
 //            模擬從網路取得資料
@@ -142,6 +162,7 @@ class StudentDataTableViewController: UITableViewController {
         cell.nameLabel.text = studentData.cName
         cell.genderLabel.text = studentData.cSex
         cell.emailLabel.text = studentData.cEmail
+        cell.phptoImage.image = studentData.photo
         
         print("資料更新到 UI 中")
         return cell

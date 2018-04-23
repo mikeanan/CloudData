@@ -13,6 +13,7 @@ class StudentDataTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var phptoImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
