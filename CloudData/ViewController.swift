@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {//修改成可以輸入
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {//修改成可以輸入
     var apiGithubComGlossJson: [apiGithubComGloss] = []
 
     @IBOutlet weak var nameTextField: UITextField!//修改成可以輸入
@@ -68,6 +68,26 @@ class ViewController: UIViewController, UITextFieldDelegate {//修改成可以�
                 localhostDataTransfer.photo = photo
             }
         }
+    }
+    
+    @IBAction func selectPhoto(_ sender: UITapGestureRecognizer) {
+        let selectPhotoController = UIImagePickerController()
+        selectPhotoController.sourceType = .photoLibrary
+        selectPhotoController.delegate = self
+        
+        present(selectPhotoController, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedPhoto = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("\(info)")
+        }
+        photoImage.image = selectedPhoto
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
