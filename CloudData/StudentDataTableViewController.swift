@@ -42,7 +42,7 @@ class StudentDataTableViewController: UITableViewController {
                 let cPhotoPath = self.localhostStudentsDataArray[index].cPhotoPath
                 
                 //傳入圖檔路徑
-                localhostStudents.fetchImage(cPhotoPath: cPhotoPath!){ dataTransfer in
+                localhostStudents.fetchImageWithoutCache(cPhotoPath: cPhotoPath!){ dataTransfer in
                     self.localhostStudentsDataArray[index].photo = dataTransfer
                     self.tableView.reloadData()
                 }

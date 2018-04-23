@@ -102,6 +102,28 @@ extension localhostStudents {
         }
     }
     
+    static func fetchImageWithoutCache(cPhotoPath cPhotoPathIn:String, completion: @escaping (UIImage?) -> ()) {
+//        根據要 request 的路徑，清除上次的 cache
+        let url = "http://homestead.test/\(cPhotoPathIn)"
+        let urlRequest = URLRequest(url: URL(string: url)!)
+        URLCache.shared.removeCachedResponse(for: urlRequest)
+        
+        Alamofire.request("http://homestead.test/\(cPhotoPathIn)").responseImage{ response in
+            guard let image = response.result.value else{
+                return
+            }
+            
+            completion(image)
+        }
+//        或者。。。
+//        Alamofire.request(url).responseData { response in
+//            guard let data = response.data else {
+//                return completion(nil)
+//            }
+//            completion(UIImage(data: data, scale:1))
+//        }
+    }
+    
 //    新增用
     static func add(parameters: Parameters){
         Alamofire.request("http://homestead.test/add.php", method: .post, parameters: parameters, encoding: URLEncoding.default).responseString { response in
